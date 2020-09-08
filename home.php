@@ -103,6 +103,6 @@
   <p>Lehe avamise hetk: <?php echo $fulltimenow; ?>.</p>
   <p><?php echo "Praegu on " .$partofday ."."; ?></p>
   <p>Semestri algusest on möödunud <?php echo $dayselapseddays; ?>päeva.<p/>
-  <p>Läbitud on <?php echo dayselapsedpercentage; ?>% semestrist.</p>
+  <p>Läbitud on <?php echo $dayselapsedpercentage; ?>% semestrist.</p>
 </body>
 </html>
