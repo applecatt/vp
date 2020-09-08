@@ -86,7 +86,7 @@
   $semesterdurationdays = $semesterduration->format("%r%a"); //%a - päevade arv
   $today = new DateTime("now");
   $dayselapsed = $semesterstart->diff($today);
-  $dayselapseddays = $dayselapsed->format("%r%a);
+  $dayselapseddays = $dayselapsed->format("%r%a");
   $dayselapsedpercentage = $dayselapseddays/108*100;
 ?>
 <!DOCTYPE html>
