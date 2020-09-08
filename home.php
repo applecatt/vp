@@ -102,7 +102,7 @@
   <p>See konkreetne leht on loodud veebiprogrammeerimise kursusel aasta 2020 sügissemestril <a href="https://www.tlu.ee">Tallinna Ülikooli<a/> Digitehnoloogiate instituudis.<p>
   <p>Lehe avamise hetk: <?php echo $fulltimenow; ?>.</p>
   <p><?php echo "Praegu on " .$partofday ."."; ?></p>
-  <p>Semestri algusest on möödunud <?php echo $dayselapseddays; ?>päeva.<p/>
+  <p>Semestri algusest on möödunud <?php echo $dayselapseddays; ?> päeva.<p/>
   <p>Läbitud on <?php echo $dayselapsedpercentage; ?>% semestrist.</p>
 </body>
 </html>
