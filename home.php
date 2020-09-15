@@ -50,10 +50,10 @@
 			echo "Semestri algusest on möödunud " .$dayselapseddays ." päeva.\n" ."Läbitud on " .$dayselapsedpercentage ."% semestrist!";
 		}
 		if($dayselapseddays <0){
-			echo "Semester pole veel alanud!";
+			echo "Semester pole veel alanud!\nLäbitud on 0% semestrist.";
 		}
 		if($dayselapseddays > $semesterduration){
-			echo "Semester on juba läbi.";
+			echo "Semester on juba läbi.\nLäbitud on 100% semestrist.";
 		}
 	?>
 </body>
