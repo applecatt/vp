@@ -32,7 +32,9 @@
   
   
   $username = "Harry Loog";
-  $fulltimenow = date("d.m.Y H:i:s");
+  $yearnow = date("Y");
+  $datenow = date("d");
+  $timenow = date("H:i:s");
   $hournow = date("H");
   $partofday = "lihtsalt aeg";
   $weekdaynameset = ["esmaspäev", "teisipäev", "kolmapäev", "neljapäev", "reede", "laupäev", "pühapäev"];
@@ -100,13 +102,12 @@
 <head>
   <meta charset="utf-8">
   <title><?php echo $username; ?> programmeerib veebi</title>
-
 </head>
 <body>
   <h1><?php echo $username; ?></h1>
   <p>See veebileht on loodud õppetöö kaigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>See konkreetne leht on loodud veebiprogrammeerimise kursusel aasta 2020 sügissemestril <a href="https://www.tlu.ee">Tallinna Ülikooli<a/> Digitehnoloogiate instituudis.<p>
-  <p>Lehe avamise hetk: <?php echo $monthnameset[$monthnow-1] .", " .$weekdaynameset[$weekdaynow-1] .", " .$fulltimenow; ?>.</p>
+  <p>Lehe avamise hetk: <?php echo $weekdaynameset[$weekdaynow-1] .", " .$datenow .". " .$monthnameset[$monthnow-1] ." " .$yearnow .", kell " .$timenow; ?>.</p>
   <p><?php echo "Praegu on " .$partofday ."."; ?></p>
   <?php
 		if($dayselapseddays > 0 and $dayselapseddays < $semesterduration){
@@ -131,12 +132,7 @@
 <hr>
 <p><?php echo $img_html;?></p>
 <hr>
-<form method="POST">
-<label>Sisesta oma pähe tulnud mõte!</label>
-<input type="text" name="ideainput" placeholder="Kirjuta siia mõte!">
-<input type="submit" name="ideasubmit" value="Saada mõte ära!">
-</form>
-  <hr>
-  <?php echo $ideahtml; ?>
+<h1><a href="form.php">Vajuta siia et sisestada oma mõte!<a/></h1>
+<h1><a href="list.php">Vajuta siia et vaadata oma mõtteid!<a/></h1>
 </body>
 </html>
