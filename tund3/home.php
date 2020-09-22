@@ -89,7 +89,7 @@
 	$pic_count=count($pic_files);
 	//paneme kõik pildid ekraanile
 	$img_html = "";
-	$img_html = '<img src="../vp-pics/' .$pic_files[rand(0,3)] .'" alt="Tallinna Ülikool"/>';
+	$img_html = '<img src="../vp-pics/' .$pic_files[mt_rand(0,$pic_count-1)] .'" alt="Tallinna Ülikool"/>';
 //	for($i = 0; $i < $pic_count; $i ++){
 //		$img_html .= '<img src="../vp-pics/' .$pic_files[$i] .'" ';
 //		$img_html .= 'alt="Tallinna Ülikool"/>';
@@ -108,6 +108,12 @@
   <p>See veebileht on loodud õppetöö kaigus ning ei sisalda mingit tõsiseltvõetavat sisu!</p>
   <p>See konkreetne leht on loodud veebiprogrammeerimise kursusel aasta 2020 sügissemestril <a href="https://www.tlu.ee">Tallinna Ülikooli<a/> Digitehnoloogiate instituudis.<p>
   <p>Lehe avamise hetk: <?php echo $weekdaynameset[$weekdaynow-1] .", " .$datenow .". " .$monthnameset[$monthnow-1] ." " .$yearnow .", kell " .$timenow; ?>.</p>
+  <ul>
+  <li><a href="form.php">Vajuta siia et sisestada oma mõte!<a/></li>
+<li><a href="list.php">Vajuta siia et vaadata oma mõtteid!<a/></li>
+<li><a href="listfilms.php">Vajuta siia et vaadata filme!<a/></li>
+<li><a href="addfilms.php">Filmiinfo lisamine<a/></li>
+  </ul>
   <p><?php echo "Praegu on " .$partofday ."."; ?></p>
   <?php
 		if($dayselapseddays > 0 and $dayselapseddays < $semesterduration){
@@ -132,7 +138,5 @@
 <hr>
 <p><?php echo $img_html;?></p>
 <hr>
-<h1><a href="form.php">Vajuta siia et sisestada oma mõte!<a/></h1>
-<h1><a href="list.php">Vajuta siia et vaadata oma mõtteid!<a/></h1>
 </body>
 </html>

@@ -1,21 +1,10 @@
-<?php
-  //var_dump($_POST);
+<?php 
   require("../../../config.php");
-  $database = "if20_harry_lo_1";
-  //kui on idee sisestatud ja nuppu vajutatud, salvestame selle andmebaasi
-  if(isset($_POST["ideasubmit"]) and !empty($_POST["ideasubmit"])){
-	  $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
-	  //vbalmistan ettte SQL käsu
-	  $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES(?)");
-	  echo $conn->error;
-	  //seome käsuga pärisandmed
-	  //i -integer, d - decimal, s - string
-	  $stmt->bind_param("s", $_POST["ideainput"]);
-	  $stmt->execute();
-	  $stmt->close();
-	  $conn->close();
-  }
-      $username = "Harry Loog";
+  require("fnc_films.php");
+  
+
+
+  $username = "Harry Loog";
   $yearnow = date("Y");
   $datenow = date("d");
   $timenow = date("H:i:s");
@@ -56,6 +45,19 @@
   if($dayselapseddays >= 0 and $dayselapseddays <= $semesterduration){
 	  $dayselapsedpercentage = round($dayselapseddays/$semesterdurationdays*100 , 2);
 }
+  $inputerror = "";
+  //kui klikiti submit, siis ...
+  if(isset($_POST["filmsubmit"])){
+	if(empty($_POST["titleinput"]) or empty($_POST["genreinput"]) or empty($_POST["studioinput"]) or empty($_POST["directorinput"])){
+	  $inputerror .="Osa infot on sisestamata! ";
+	}
+	if($_POST["yearinput"] > date("Y") or $_POST["yearinput"] < 1895){
+	  $inputerror .= "Ebareaalne valmimisaasta!";
+	}
+	if($inputerror==""){
+		savefilm($_POST["titleinput"], $_POST["yearinput"], $_POST["durationinput"], $_POST["genreinput"], $_POST["studioinput"], $_POST["directorinput"]);
+	}
+  }
   require("header.php");
 ?>
 <!DOCTYPE html>
@@ -90,13 +92,27 @@
 			echo "Semester lõpeb täna\nSemestrist on läbitud " .$dayselapsedpercentage ."%";
 		}
 	?>
-	<hr>
-<h1>Sisesta oma mõte!</h1>
-<form method="POST">
-<label>Sisesta oma pähe tulnud mõte!</label>
-<input type="text" name="ideainput" placeholder="Kirjuta siia mõte!">
-<input type="submit" name="ideasubmit" value="Saada mõte ära!">
-</form>
-
+  <hr>
+  <form method ="POST">
+    <label for="titleinput">Filmi pealkiri</label>
+	<input type="text" name="titleinput" id="titleinput" placeholder="Pealkiri">
+	<br>
+	<label for="yearinput">Filmi valmimisaasta</label>
+	<input type="number" name="yearinput" id="yearinput" value="<?php echo date("Y"); ?>">
+	<br>
+	<label for="durationinput">Filmi pikkus</label>
+	<input type="number" name="durationinput" id="durationinput" value="80">
+	<br>
+	<label for="genreinput">Filmi žanr</label>
+	<input type="text" name="genreinput" id="genreinput" placeholder="Žanr">
+	<br><label for="studioinput">Filmistuudio</label>
+	<input type="text" name="studioinput" id="studioinput" placeholder="Stuudio">
+	<br><label for="directorinput">Filmi lavastaja</label>
+	<input type="text" name="directorinput" id="directorinput" placeholder="Tanel Toom">
+	<br>
+	<input type="submit" name="filmsubmit" value="Salvesta filmi info">
+	<br>
+  </form>
+  <p><?php echo $inputerror; ?></p>
 </body>
 </html>
