@@ -3,34 +3,66 @@
   require("../../../config.php");
   $database = "if20_harry_lo_1";
   //kui on idee sisestatud ja nuppu vajutatud, salvestame selle andmebaasi
-  if(isset($_POST["ideasubmit"]) and !empty($_POST["ideasubmit"])){
-	  $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
+  $error1="";
+  $error2="";
+  $error3="";
+  $error4="";
+  $error5="";
+  $error6="";
+  if(isset($_POST["usersubmit"]) and !empty($_POST["usersubmit"])){
+	if(empty($_POST["firstnameinput"])){
+	  $error1 .="Eesnimi on sisestamata! ";
+	}
+	if(empty($_POST["lastnameinput"])){
+	  $error2 .="Perekonnanimi on sisestamata! ";
+	}
+	if(empty($_POST["genderinput"])){
+	  $error3 .="Sugu on sisestamata! ";
+	}
+	if(empty($_POST["emailinput"])){
+	  $error4 .="Kasutajanimi on sisestamata! ";
+	}
+	if(empty($_POST["passwordinput"])){
+	  $error5 .="Salasõna on sisestamata! ";
+	}
+	if(empty($_POST["passwordseconaryinput"])){
+	  $error6 .="Salasõna kordus on sisestamata! ";
+	}
+	if(strlen($_POST["passwordinput"]) < 8){
+	  $error5 .="Salasõna on liiga lühike!";
+	}
+	if($_POST["passwordinput"] != $_POST["passwordseconaryinput"]){
+	  $error6 .="Salasõnad on erinevad!";
+	}
+	else{}
+	  #$conn = new ...
+	#  $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
 	  //vbalmistan ettte SQL käsu
-	  $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES(?)");
-	  echo $conn->error;
+	#  $stmt = $conn->prepare("INSERT INTO myideas (idea) VALUES(?)");
+	#  echo $conn->error;
 	  //seome käsuga pärisandmed
 	  //i -integer, d - decimal, s - string
-	  $stmt->bind_param("s", $_POST["ideainput"]);
-	  $stmt->execute();
-	  $stmt->close();
-	  $conn->close();
+	#  $stmt->bind_param("s", $_POST["ideainput"]);
+	#  $stmt->execute();
+	#  $stmt->close();
+	#  $conn->close();
   }
-  
-  //loen lehele kõik olemasolevad mõtted
-  $conn = new mysqli($serverhost, $serverusername, $serverpassword, $database);
-  $stmt = $conn ->prepare("SELECT idea FROM myideas");
-  echo $conn->error;
-  //seome tulemuse muutujaga
-  $stmt->bind_result($ideafromdb);
-  $stmt->execute();
-  $ideahtml = "";
-  while($stmt->fetch()){
-	  $ideahtml .= "<p>" .$ideafromdb ."</p>";
+  $firstname ="";
+  $lastname ="";
+  $gender ="";
+  $email ="";
+  if(isset($_POST["firstnameinput"])){
+	$firstname  = $_POST["firstnameinput"];
   }
-  $stmt->close();
-  $conn->close();
-  
-  
+  if(isset($_POST["lastnameinput"])){
+	$lastname  = $_POST["lastnameinput"];
+  }
+  if(isset($_POST["genderinput"])){
+	$gender  = $_POST["genderinput"];
+  }
+  if(isset($_POST["emailinput"])){
+	$email  = $_POST["emailinput"];
+  }
   $username = "Harry Loog";
   $yearnow = date("Y");
   $datenow = date("d");
@@ -59,8 +91,7 @@
   if($hournow >16 and $hournow<24){
 	  $partofday = "õhtu";
   }
-  
-  
+
   //vaatame semestri kulgemist
   $semesterstart = new DateTime("2020-8-31");
   $semesterend = new DateTime("2020-12-13");
@@ -72,29 +103,7 @@
   if($dayselapseddays >= 0 and $dayselapseddays <= $semesterduration){
 	  $dayselapsedpercentage = round($dayselapseddays/$semesterdurationdays*100 , 2);
 }
-	$picfiletypes = ["image/jpeg", "image/png"];
-	//loeme piltide kataloogi sisu ja näitame püilte
-	$allfiles = array_slice(scandir("../vp-pics/"), 2);
-	//$allfiles = scandir("../vp-pics/");
-	//var_dump($allfiles);
-	//$pic_files = array_slice($allfiles, 2);
-	$pic_files = [];
-	//var_dump($pic_files);
-	foreach($allfiles as $thing){
-	  $fileinfo = getImagesize("../vp-pics/" .$thing);
-	  if(in_array($fileinfo["mime"], $picfiletypes) == true){
-		  array_push($pic_files, $thing);
-	  }
-	}
-	$pic_count=count($pic_files);
-	//paneme kõik pildid ekraanile
-	$img_html = "";
-	$img_html = '<img src="../vp-pics/' .$pic_files[mt_rand(0,$pic_count-1)] .'" alt="Tallinna Ülikool"/>';
-//	for($i = 0; $i < $pic_count; $i ++){
-//		$img_html .= '<img src="../vp-pics/' .$pic_files[$i] .'" ';
-//		$img_html .= 'alt="Tallinna Ülikool"/>';
-//	}//i=i+1 i=i++ i+=2
-	
+
   require("header.php");
 ?>
 <!DOCTYPE html>
@@ -109,11 +118,7 @@
   <p>See konkreetne leht on loodud veebiprogrammeerimise kursusel aasta 2020 sügissemestril <a href="https://www.tlu.ee">Tallinna Ülikooli<a/> Digitehnoloogiate instituudis.<p>
   <p>Lehe avamise hetk: <?php echo $weekdaynameset[$weekdaynow-1] .", " .$datenow .". " .$monthnameset[$monthnow-1] ." " .$yearnow .", kell " .$timenow; ?>.</p>
   <ul>
-  <li><a href="form.php">Vajuta siia et sisestada oma mõte!<a/></li>
-<li><a href="list.php">Vajuta siia et vaadata oma mõtteid!<a/></li>
-<li><a href="listfilms.php">Vajuta siia et vaadata filme!<a/></li>
-<li><a href="addfilms.php">Filmiinfo lisamine<a/></li>
-<li><a href="login.php">Logi sisse<a/></li>
+  <li><a href="home.php">Avaleht<a/></li>
   </ul>
   <p><?php echo "Praegu on " .$partofday ."."; ?></p>
   <?php
@@ -133,11 +138,27 @@
 			echo "Semester lõpeb täna\nSemestrist on läbitud " .$dayselapsedpercentage ."%";
 		}
 	?>
-<!--  
-  <img src="../img/vp_banner.png" alt="Veebiprogrammeerimise kursuse banner"/>
--->
-<hr>
-<p><?php echo $img_html;?></p>
-<hr>
+	<hr>
+<form method="POST">
+<p>Registreeri kasutajaks!<p>
+<p>Sisesta info<p>
+<br>
+<label>Eesnimi</label><input type="text" name="firstnameinput" value="<?php echo $firstname; ?>" placeholder = "Sisesta oma eesnimi!"><span><?php echo $error1; ?></span>
+<br>
+<label>Perekonnanimi</label><input type="text" name="lastnameinput" value="<?php echo $lastname; ?>" placeholder = "Sisesta oma perekonnanimi!"><span><?php echo $error2; ?></span>
+<br>
+<label>Sugu</label><input type="radio" name="genderinput" id="gendermale" value="1" <?php if($gender == "1"){echo " checked";}?>><label for="gendermale">Mees</label>
+<br>
+<input type="radio" name="genderinput" id="genderfemale" value="2" <?php if($gender == "2"){echo " checked";}?>><label for="genderfemale">Naine</label><span><?php echo $error3; ?></span>
+<br>
+<label>E-mail</label><input type="email" name="emailinput" value="<?php echo $email; ?>"><span><?php echo $error4; ?></span>
+<br>
+<label>Salasõna</label><input type="password" name="passwordinput"><span><?php echo $error5; ?></span>
+<br>
+<label>Korda salasõna</label><input type="password" name="passwordseconaryinput"><span><?php echo $error6; ?></span>
+<br>
+<input type="submit" name="usersubmit" value="Registreeri!">
+</form>
+
 </body>
 </html>
