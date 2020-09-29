@@ -142,20 +142,38 @@
 <form method="POST">
 <p>Registreeri kasutajaks!<p>
 <p>Sisesta info<p>
+<label>Eesnimi</label>
 <br>
-<label>Eesnimi</label><input type="text" name="firstnameinput" value="<?php echo $firstname; ?>" placeholder = "Sisesta oma eesnimi!"><span><?php echo $error1; ?></span>
 <br>
-<label>Perekonnanimi</label><input type="text" name="lastnameinput" value="<?php echo $lastname; ?>" placeholder = "Sisesta oma perekonnanimi!"><span><?php echo $error2; ?></span>
+<input type="text" name="firstnameinput" value="<?php echo $firstname; ?>" placeholder = "Sisesta oma eesnimi!"><span><?php echo $error1; ?></span>
+<br><br>
+<label>Perekonnanimi</label>
 <br>
-<label>Sugu</label><input type="radio" name="genderinput" id="gendermale" value="1" <?php if($gender == "1"){echo " checked";}?>><label for="gendermale">Mees</label>
+<br>
+<input type="text" name="lastnameinput" value="<?php echo $lastname; ?>" placeholder = "Sisesta oma perekonnanimi!"><span><?php echo $error2; ?></span>
+<br><br>
+<label>Sugu</label>
+<br>
+<br>
+<input type="radio" name="genderinput" id="gendermale" value="1" <?php if($gender == "1"){echo " checked";}?>><label for="gendermale">Mees</label>
 <br>
 <input type="radio" name="genderinput" id="genderfemale" value="2" <?php if($gender == "2"){echo " checked";}?>><label for="genderfemale">Naine</label><span><?php echo $error3; ?></span>
+<br><br>
+<label>E-mail</label>
 <br>
-<label>E-mail</label><input type="email" name="emailinput" value="<?php echo $email; ?>"><span><?php echo $error4; ?></span>
 <br>
-<label>Salasõna</label><input type="password" name="passwordinput"><span><?php echo $error5; ?></span>
+<input type="email" name="emailinput" value="<?php echo $email; ?>"><span><?php echo $error4; ?></span>
+<br><br>
+<label>Salasõna</label>
 <br>
-<label>Korda salasõna</label><input type="password" name="passwordseconaryinput"><span><?php echo $error6; ?></span>
+<br>
+<input type="password" name="passwordinput"><span><?php echo $error5; ?></span>
+<br><br>
+<label>Korda salasõna</label>
+<br>
+<br>
+<input type="password" name="passwordseconaryinput"><span><?php echo $error6; ?></span>
+<br>
 <br>
 <input type="submit" name="usersubmit" value="Registreeri!">
 </form>
