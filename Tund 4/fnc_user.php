@@ -33,7 +33,7 @@
 			//kui tehniliselt korras
 			if($stmt->fetch()){
 				//kasutaja leiti
-				if(password_verify($password, $passwordfromdb)){
+				if(password_verify($password, $password_from_db)){
 					//parool õige
 					$stmt->close();
 					$conn->close();
@@ -43,7 +43,7 @@
 					$notice = "Vale salasõna!";
 				}
 			} else {
-				$notice="Sellist kasutajat (" .$email ." ei leitud!";
+				$notice="Sellist kasutajat (" .$email .") ei leitud!";
 			}
 		} else{
 		
